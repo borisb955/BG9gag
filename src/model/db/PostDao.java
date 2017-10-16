@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import model.Post;
@@ -26,8 +27,9 @@ public class PostDao {
 	public void insertPost(Post p) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
 		
-		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.posts(description, post_url, upload_date"
-				+ "user_id) VALUES(?, ?, ?, ?)");
+		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.posts(description, post_url,"
+												+ " upload_date, user_id) "
+												+ "VALUES(?, ?, ?, ?)");
 		ps.setString(1, p.getDescription());
 		ps.setString(2, p.getPost_url());
 		ps.setTimestamp(3, Timestamp.valueOf(p.getDateTime()));
@@ -41,8 +43,9 @@ public class PostDao {
 	public Post getPost(long postId, User u) throws SQLException{
 		Connection conn = DBManager.getInstance().getConn();
 		
-		PreparedStatement ps = conn.prepareStatement("SELECT description, post_url"
-				+ ", upload_date FROM 9gag.posts WHERE post_id = ?");
+		PreparedStatement ps = conn.prepareStatement("SELECT description, post_url, points , upload_date "
+													+ "FROM 9gag.posts "
+													+ "WHERE post_id = ?");
 		ps.setLong(1, postId);
 		ResultSet rs = ps.executeQuery();
 		
@@ -50,23 +53,28 @@ public class PostDao {
 		return new Post(postId,
 						rs.getString("description"), 
 						rs.getString("post_url"), 
+						rs.getInt("points"),
 						rs.getTimestamp("upload_date").toLocalDateTime(), 
 						u);
 	}
 
-	public TreeSet<Post> getAllPostsForUser(User u) throws SQLException {
+	public ArrayList<Post> getAllPostsForUser(User u) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
 		
 		PreparedStatement ps = conn.prepareStatement("SELECT post_id, description, post_url, points,"
-				+ ", upload_date FROM 9gag.posts WHERE user_id = ?");
+												+ ", upload_date "
+												+ "FROM 9gag.posts "
+												+ "WHERE user_id = ? "
+												+ "ORDER BY upload_date");
 		ps.setLong(1, u.getId());
 		ResultSet rs = ps.executeQuery();
 		
-		TreeSet<Post> posts = new TreeSet<>();
+		ArrayList<Post> posts = new ArrayList<>();
 		while(rs.next()) {
 			posts.add(new Post(rs.getLong("post_id"),
 							   rs.getString("description"), 
-							   rs.getString("post_url"), 
+							   rs.getString("post_url"),
+							   rs.getInt("points"),
 							   rs.getTimestamp("upload_date").toLocalDateTime(),
 							   u));
 		}

@@ -10,6 +10,8 @@ import java.util.TreeSet;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import model.Upvote;
 import model.User;
 
@@ -27,7 +29,8 @@ public class UserDao {
 	
 	public void insertUser(User u) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
-		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.users(username, password, email) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.users(username, password, email) "
+												+ "VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, u.getUsername());
 		ps.setString(2, u.getPassword());
 		ps.setString(3, u.getEmail());
@@ -95,25 +98,34 @@ public class UserDao {
 		return false;
 	}
 	
-	public User getUser(String username) throws SQLException {
+	public User getFullUser(String username) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
 		
 		PreparedStatement ps = conn.prepareStatement("SELECT user_id ,user_name, password, email, "
-				+ "upvotes_hidden, profile_id FROM 9gag.users WHERE username = ?");
+									+ "upvotes_hidden, profile_id FROM 9gag.users WHERE username = ?");
 		ps.setString(1, username);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		
-		//да се види дали ще се получи безкрайна рекурсия при коментарите
-		User u = new User(rs.getLong("user_id"), 
-						rs.getString("user_name"), 
-						rs.getString("password"), 
-						rs.getString("email"),
-						ProfileDao.getInstance().getProfile(rs.getLong("profile_id")));
+		User u = getUserById(rs.getLong("user_id"));
 		
 		u.setUpvotes(UpvoteDao.getInstance().getUpvotes(u));
 		u.setPosts(PostDao.getInstance().getAllPostsForUser(u));
 		u.setComments(CommentDao.getInstance().getAllCommentsForUser(u));
 		return u;
+	}
+	
+	public User getUserById(long userId) throws SQLException {
+		Connection conn = DBManager.getInstance().getConn();
+		PreparedStatement ps = conn.prepareStatement("SELECT user_name, password, email, upvotes_hidden,"
+				+ " profile_id FROM 9gag.users WHERE user_id = ?");
+		ps.setLong(1, userId);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		return new User(userId, rs.getString("user_name"), 
+								rs.getString("password"), 
+								rs.getString("email"), 
+								ProfileDao.getInstance().getProfile(userId));
 	}
 }

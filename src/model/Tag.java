@@ -13,8 +13,6 @@ public class Tag {
 		this.tag_id = tag_id;
 	}
 	
-	
-
 	public long getTag_id() {
 		return tag_id;
 	}
@@ -26,7 +24,4 @@ public class Tag {
 	public String getTag_name() {
 		return tag_name;
 	}
-	
-	
-	
 }

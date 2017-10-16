@@ -26,6 +26,6 @@ public class PostTagDao {
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.posts_tags(post_id, tag_id) VALUES(?, ?)");
 		ps.setLong(1, pt.getPost().getPost_id());
 		ps.setLong(2, pt.getTag().getTag_id());
-		ps.executeQuery();
+		ps.executeUpdate();
 	}
 }
