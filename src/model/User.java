@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class User {
@@ -8,9 +9,9 @@ public class User {
 	private String password;
 	private String email;
 	private Profile profile;
-	private TreeSet<Upvote> upvotes;
-	private TreeSet<Post> posts;
-	private TreeSet<Comment> comments;
+	private ArrayList<Upvote> upvotes;
+	private ArrayList<Post> posts;
+	private ArrayList<Comment> comments;
 	
 	public User(String username, String password, String email) {
 		this.username = username;
@@ -24,15 +25,15 @@ public class User {
 	
 	
 	
-	public void setComments(TreeSet<Comment> comments) {
+	public void setComments(ArrayList<Comment> comments) {
 		this.comments = comments;
 	}
 	
-	public void setPosts(TreeSet<Post> posts) {
+	public void setPosts(ArrayList<Post> posts) {
 		this.posts = posts;
 	}
 	
-	public void setUpvotes(TreeSet<Upvote> upvotes) {
+	public void setUpvotes(ArrayList<Upvote> upvotes) {
 		this.upvotes = upvotes;
 	}
 	

@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-i am batman 
-=======
-I am the best
->>>>>>> gosho
