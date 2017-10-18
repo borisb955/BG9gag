@@ -14,6 +14,7 @@ import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import model.Upvote;
 import model.User;
+import util.Encrypter;
 
 public class UserDao {
 	private static UserDao instance;
@@ -32,7 +33,7 @@ public class UserDao {
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.users(username, password, email) "
 												+ "VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, u.getUsername());
-		ps.setString(2, u.getPassword());
+		ps.setString(2, Encrypter.encrypt(u.getPassword()));
 		ps.setString(3, u.getEmail());
 		ps.executeUpdate();
 		ResultSet rs = ps.getGeneratedKeys();
@@ -63,7 +64,7 @@ public class UserDao {
 		int count = rs.getInt(1);
 		
 		
-		return count > -1;
+		return count > 0;
 	}
 	
 	public static boolean userExists(String username) throws SQLException {
@@ -78,7 +79,7 @@ public class UserDao {
 		int count = rs.getInt(1);
 		
 		
-		return count > -1;
+		return count > 0;
 	}
 
 	public static boolean passwordMatch(String email, String writtenPass) throws SQLException {
@@ -92,7 +93,7 @@ public class UserDao {
 		rs.next();
 		String realPass = rs.getString(1);
 		
-		if(realPass.equals(writtenPass)) {
+		if(realPass.equals(Encrypter.encrypt(writtenPass))) {
 			return true;
 		}
 		return false;

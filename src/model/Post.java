@@ -50,6 +50,10 @@ public class Post{
 		return user;
 	}
 	
+	public int getPoints() {
+		return points;
+	}
+	
 	
 	
 	

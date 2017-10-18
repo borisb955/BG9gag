@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 public class User {
@@ -10,9 +11,14 @@ public class User {
 	private String email;
 	private Profile profile;
 	private ArrayList<Upvote> upvotes;
+//	private HashSet<Post> likedPosts;
 	private ArrayList<Post> posts;
 	private ArrayList<Comment> comments;
 	
+	public User(long id, String username) {
+		this.id = id;
+		this.username = username;
+	}
 	public User(String username, String password, String email) {
 		this.username = username;
 		this.password = password;
