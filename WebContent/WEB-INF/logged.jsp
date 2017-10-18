@@ -11,7 +11,7 @@
 	<title>9gag logged</title>
 </head>
 	<body>
-		<jsp:include page="headerNL.jsp"></jsp:include>
+		<jsp:include page="headerLogged.jsp"></jsp:include>
 
 		<table>
 			<c:forEach items="${requestScope.allPosts}" var="post" >

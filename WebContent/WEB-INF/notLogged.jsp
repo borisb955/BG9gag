@@ -11,7 +11,7 @@
 	<title>Insert title here</title>
 </head>
 	<body>
-	<jsp:include page="headerL.jsp"></jsp:include>
+	<jsp:include page="headerNotLogged.jsp"></jsp:include>
 	
 		<table>
 			<c:forEach items="${requestScope.allPosts}" var="post" >
