@@ -29,7 +29,8 @@ public class LoginServlet extends HttpServlet{
 				resp.getWriter().append("Incorrect password.");
 			}else {
 				req.getSession().setAttribute("logged", true);
-				resp.sendRedirect("logged.html");
+				req.getRequestDispatcher("").forward(req, resp);
+				return;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

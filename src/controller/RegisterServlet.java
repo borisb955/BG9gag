@@ -21,15 +21,7 @@ public class RegisterServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession s = req.getSession();
-		Object o = s.getAttribute("logged");
-		boolean logged = (o != null && ((boolean) o));
-		if(s.isNew() || !logged) {
-			resp.sendRedirect("index.html");
-		}else {
-			resp.sendRedirect("logged.html");
-		}
-		System.out.println("ohooo");
+
 	}
 	
 	
@@ -72,7 +64,9 @@ public class RegisterServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				resp.getWriter().append("Registered new user with id : " + u.getId());
+				req.getRequestDispatcher("").forward(req, resp);
+				return;
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

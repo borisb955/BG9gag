@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 import model.Post;
@@ -80,4 +81,29 @@ public class PostDao {
 		}
 		return posts;
 	}
+	
+	public HashSet<Post> getAllPosts() throws SQLException{
+		Connection conn = DBManager.getInstance().getConn();
+		PreparedStatement ps = conn.prepareStatement("SELECT p.*, u.username FROM 9gag.posts as p "
+													+ "JOIN 9gag.users as u "
+													+ "ON p.user_id=u.user_id");
+		ResultSet rs = ps.executeQuery();
+		
+		HashSet<Post> allPosts = new HashSet<>();
+		while(rs.next()) {
+			allPosts.add(new Post(rs.getLong("p.post_id"),
+								  rs.getString("p.description"),
+								  rs.getString("p.post_url"), 
+								  rs.getInt("p.points"), 
+								  rs.getTimestamp("p.upload_date").toLocalDateTime(), 
+								  new User(rs.getLong("p.user_id"), rs.getString("u.username"))));
+		}
+		return allPosts;
+	}
+	
+	
+//	public HashSet<Post> getLikedPostsForUser(User u){
+//		Connection conn = DBManager.getInstance().getConn();
+//		
+//	}
 }
