@@ -10,8 +10,8 @@ public class User {
 	private String password;
 	private String email;
 	private Profile profile;
-	private ArrayList<Upvote> upvotes;
-//	private HashSet<Post> likedPosts;
+	//private ArrayList<Upvote> upvotes;
+	private HashSet<Post> likedPosts;
 	private ArrayList<Post> posts;
 	private ArrayList<Comment> comments;
 	
@@ -24,10 +24,11 @@ public class User {
 		this.password = password;
 		this.email = email;
 	}
-	public User(Long id, String username, String password, String email, Profile profile) {
+	public User(Long id, String username, String password, String email, Profile profile, HashSet<Post> likedPosts) {
 		this(username, password, email);
 		this.profile = profile;
 		this.id = id;
+		this.likedPosts=likedPosts;
 	}
 	
 	
@@ -40,8 +41,8 @@ public class User {
 		this.posts = posts;
 	}
 	
-	public void setUpvotes(ArrayList<Upvote> upvotes) {
-		this.upvotes = upvotes;
+	public void setLikedPosts(HashSet<Post> likedPosts) {
+		this.likedPosts = likedPosts;
 	}
 	
 	public void setId(long id) {

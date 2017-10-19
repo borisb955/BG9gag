@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import model.Post;
 import model.PostTag;
 import model.Tag;
-import model.Upvote;
 
 public class PostTagDao {
 	private static PostTagDao instance;

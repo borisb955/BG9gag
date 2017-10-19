@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.TreeSet;
 
 import model.Post;
-import model.Upvote;
 import model.User;
 
 public class PostDao {

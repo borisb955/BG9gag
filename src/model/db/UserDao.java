@@ -12,7 +12,6 @@ import javax.mail.internet.InternetAddress;
 
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
-import model.Upvote;
 import model.User;
 import util.Encrypter;
 
@@ -111,7 +110,7 @@ public class UserDao {
 		
 		User u = getUserById(rs.getLong("user_id"));
 		
-		u.setUpvotes(UpvoteDao.getInstance().getUpvotes(u));
+		u.setLikedPosts(UpvoteDao.getInstance().getLikedPosts(u));
 		u.setPosts(PostDao.getInstance().getAllPostsForUser(u));
 		u.setComments(CommentDao.getInstance().getAllCommentsForUser(u));
 		return u;
@@ -128,7 +127,7 @@ public class UserDao {
 		
 		User u = getUserById(rs.getLong("user_id"));
 		
-		u.setUpvotes(UpvoteDao.getInstance().getUpvotes(u));
+		u.setLikedPosts(UpvoteDao.getInstance().getLikedPosts(u));
 		u.setPosts(PostDao.getInstance().getAllPostsForUser(u));
 		u.setComments(CommentDao.getInstance().getAllCommentsForUser(u));
 		return u;
@@ -142,11 +141,13 @@ public class UserDao {
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		
-		
+		User u = new User(userId,rs.getString("username"));
 		return new User(userId, 
 						rs.getString("username"), 
 						rs.getString("password"), 
 						rs.getString("email"), 
-						ProfileDao.getInstance().getProfile(userId));
+						ProfileDao.getInstance().getProfile(userId),
+						UpvoteDao.getInstance().getLikedPosts(u)
+						);
 	}
 }

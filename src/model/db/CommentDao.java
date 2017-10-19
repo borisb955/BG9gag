@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 import model.Comment;
-import model.Upvote;
 import model.User;
 import sun.security.action.GetLongAction;
 
