@@ -94,8 +94,7 @@
 			</div>
 
 			<button class="upload-button"><a class="button-links" href="upload">+ Upload</a></button>	
-			
-			
+	
 		</div>
 	</div>
 </html>
