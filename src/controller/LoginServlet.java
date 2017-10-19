@@ -31,6 +31,10 @@ public class LoginServlet extends HttpServlet {
 				User u = UserDao.getInstance().getFullUserByEmail(email);
 				HttpSession s = req.getSession();
 				
+				System.out.println();
+				System.out.println();
+				System.out.println("novata sesiika : "+s);
+				
 				req.getSession().setAttribute("user", u);
 				req.getSession().setAttribute("logged", true);
 				req.getRequestDispatcher("").forward(req, resp);

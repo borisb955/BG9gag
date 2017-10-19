@@ -2,3 +2,4 @@
 .settings/
 build/
 .classpath
+src/model/db/DBManager.java

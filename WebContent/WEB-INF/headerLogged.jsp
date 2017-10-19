@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,6 +15,7 @@
 		.header-links{color: gray; padding-left: 35px; text-decoration: none; font-weight: bold;}
 		.upload-button{background: blue; cursor: pointer; border: none; font-size: 16px;}
 		.button-links{color: white; text-decoration: none;}
+		.username{color: white}
 		a:hover{color: white}
 		
 		
@@ -75,6 +77,8 @@
 			<a class="header-links" href="">Video</a>
 		</div>
 		<div id="loginReg">
+		
+		<p class="username">Welcome <c:out value="${ sessionScope.user.username }"></c:out>
 		
 			
 			<div class="dropdown">

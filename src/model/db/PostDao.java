@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.TreeSet;
 
 import model.Post;
-import model.Upvote;
 import model.User;
 
 public class PostDao {
@@ -36,9 +35,10 @@ public class PostDao {
 		ps.setTimestamp(3, Timestamp.valueOf(p.getDateTime()));
 		ps.setLong(4, p.getUser().getId());
 		
-		ResultSet rs = ps.executeQuery();
+		ps.executeUpdate();
+		ResultSet rs = ps.getGeneratedKeys();
 		rs.next();
-		p.setPost_id(rs.getLong("post_id"));
+		p.setPost_id(rs.getLong(1));
 	}
 	
 	public Post getPost(long postId, User u) throws SQLException{

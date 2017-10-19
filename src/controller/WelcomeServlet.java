@@ -56,7 +56,7 @@ public class WelcomeServlet extends HttpServlet {
 		try {
 
 			HashSet<Post> allPosts = PostDao.getInstance().getAllPosts();
-	
+
 			req.setAttribute("allPosts", allPosts);
 			
 		} catch (SQLException e) {
@@ -67,9 +67,11 @@ public class WelcomeServlet extends HttpServlet {
 		
 		if(s.isNew() || !logged) {
 			req.getRequestDispatcher("WEB-INF/notLogged.jsp").forward(req, resp);
+			System.out.println("not logged");
 			return;
 		}else {
 			req.getRequestDispatcher("WEB-INF/logged.jsp").forward(req, resp);
+			System.out.println("logged");
 			return;
 		}
 	}

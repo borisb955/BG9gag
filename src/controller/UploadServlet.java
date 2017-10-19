@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import javax.servlet.ServletException;
@@ -17,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import model.Post;
 import model.User;
+import model.db.PostDao;
 
 @WebServlet("/upload")
 @MultipartConfig
@@ -34,12 +38,18 @@ public class UploadServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession s = req.getSession(false);
+		HttpSession s = req.getSession(true);
 		User u = (User) s.getAttribute("user");
+		String description = req.getParameter("description"); 
+	    Part filePart = req.getPart("file"); // Retrieves <input type="file" name="file">
+
+		
+		//Here when we go back and upload again throws null pointer. Why?
+		System.out.println();
+		System.out.println();
+		System.out.println(u.getUsername());
 	
 		
-		String description = req.getParameter("description"); // Retrieves <input type="text" name="description">
-	    Part filePart = req.getPart("file"); // Retrieves <input type="file" name="file">
 	    //using File.seperator for the different OSs
 	    File folders = new File("C:"
 	    		+File.separator+"Users"
@@ -67,6 +77,13 @@ public class UploadServlet extends HttpServlet{
 	    if(!file.exists()) {
 	    	file.createNewFile();
 	    }
+	    
+	    Post post = new Post(description , file.getAbsolutePath() , LocalDateTime.now(), u);
+	    try {
+			PostDao.getInstance().insertPost(post);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	    
 	    //TODO: why not FileInputStream -> from video
 	    InputStream fis = filePart.getInputStream();
