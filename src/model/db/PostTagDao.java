@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import model.Post;
-import model.PostTag;
 import model.Tag;
 
 public class PostTagDao {
@@ -23,15 +22,15 @@ public class PostTagDao {
 		return instance;
 	}
 	
-	public void insertPostTag(PostTag pt) throws SQLException {
-		Connection conn = DBManager.getInstance().getConn();
-		
-		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.posts_tags(post_id, tag_id) "
-												+ "VALUES(?, ?)");
-		ps.setLong(1, pt.getPost().getPost_id());
-		ps.setLong(2, pt.getTag().getTag_id());
-		ps.executeUpdate();
-	}
+//	public void insertPostTag(PostTag pt) throws SQLException {
+//		Connection conn = DBManager.getInstance().getConn();
+//		
+//		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.posts_tags(post_id, tag_id) "
+//												+ "VALUES(?, ?)");
+//		ps.setLong(1, pt.getPost().getPost_id());
+//		ps.setLong(2, pt.getTag().getTag_id());
+//		ps.executeUpdate();
+//	}
 	
 	public ArrayList<Post> getAllPostsForTag(Tag tag) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
