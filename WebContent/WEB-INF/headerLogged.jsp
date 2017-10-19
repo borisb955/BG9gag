@@ -80,6 +80,7 @@
 			<div class="dropdown">
 			  <button class="dropbtn">Dropdown</button>
 				<div class="dropdown-content">
+					<img src="avatar">
 			    	<button><a class="button-links" href="">My Profile</a></button>
 			    	<button><a class="button-links" href="">Settings</a></button>
 			    	<form action="logout" method="post">

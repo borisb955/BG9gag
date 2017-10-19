@@ -1,5 +1,9 @@
 package controller;
 
-public class AvatarServlet {
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 
+@WebServlet("/avatar")
+public class AvatarServlet extends HttpServlet{
+	
 }
