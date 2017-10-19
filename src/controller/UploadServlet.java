@@ -24,6 +24,15 @@ import model.User;
 public class UploadServlet extends HttpServlet{
 	
 	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession s = req.getSession();
+		Object o = s.getAttribute("logged");
+		boolean logged = (o != null && ((boolean) o));
+		
+		req.getRequestDispatcher("WEB-INF/upload.jsp").forward(req, resp);
+	}
+	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession s = req.getSession(false);
 		User u = (User) s.getAttribute("user");

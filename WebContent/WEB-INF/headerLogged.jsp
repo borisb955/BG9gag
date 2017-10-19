@@ -89,7 +89,7 @@
 				</div>
 			</div>
 
-			<button class="upload-button"><a class="button-links" href="http://localhost:8080/9gag/upload.jsp">+ Upload</a></button>	
+			<button class="upload-button"><a class="button-links" href="upload">+ Upload</a></button>	
 			
 			
 		</div>

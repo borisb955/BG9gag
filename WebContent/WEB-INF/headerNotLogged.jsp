@@ -29,8 +29,8 @@
 		</div>
 		<div id="loginReg">
 			<form>
-				<button><a href="http://localhost:8080/9gag/login.html">Log in</a></button>
-				<button><a href="http://localhost:8080/9gag/register.html">Sign up</a></button>	
+				<button><a href="http://localhost:8080/BG9gag/login.html">Log in</a></button>
+				<button><a href="http://localhost:8080/BG9gag/register.html">Sign up</a></button>	
 			</form>
 		</div>
 	</div>
