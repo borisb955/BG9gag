@@ -62,11 +62,11 @@ public class PostDao {
 	public ArrayList<Post> getAllPostsForUser(User u) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
 		
-		PreparedStatement ps = conn.prepareStatement("SELECT post_id, description, post_url, points,"
+		PreparedStatement ps = conn.prepareStatement("SELECT post_id, description, post_url, points"
 												+ ", upload_date "
 												+ "FROM 9gag.posts "
-												+ "WHERE user_id = ? "
-												+ "ORDER BY upload_date");
+												+ "WHERE user_id = ? ");
+//TODO: Why doesn't work						+ "ORDER BY upload_date");
 		ps.setLong(1, u.getId());
 		ResultSet rs = ps.executeQuery();
 		
@@ -79,6 +79,7 @@ public class PostDao {
 							   rs.getTimestamp("upload_date").toLocalDateTime(),
 							   u));
 		}
+
 		return posts;
 	}
 	

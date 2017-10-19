@@ -54,13 +54,16 @@ public class WelcomeServlet extends HttpServlet {
 		//TODO: use application scope if possible to get all the posts every several 
 		//minutes in order to get the new posts
 		try {
+
 			HashSet<Post> allPosts = PostDao.getInstance().getAllPosts();
+	
 			req.setAttribute("allPosts", allPosts);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		if(s.isNew() || !logged) {
 			req.getRequestDispatcher("WEB-INF/notLogged.jsp").forward(req, resp);

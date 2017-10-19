@@ -76,7 +76,7 @@
 		</div>
 		<div id="loginReg">
 		
-			<form>
+			
 			<div class="dropdown">
 			  <button class="dropbtn">Dropdown</button>
 				<div class="dropdown-content">
@@ -87,11 +87,9 @@
 			    	</form>
 				</div>
 			</div>
-			<form action="logout" method="post">
-			    		<button><input type="submit" value="Logout"/></button>
-			</form>
-			<button class="upload-button"><a class="button-links" href="">+ Upload</a></button>	
-			</form>
+
+			<button class="upload-button"><a class="button-links" href="http://localhost:8080/9gag/upload.jsp">+ Upload</a></button>	
+			
 			
 		</div>
 	</div>

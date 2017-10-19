@@ -99,10 +99,11 @@ public class UserDao {
 		return false;
 	}
 	
+	//TODO: do we really need all the info when reg (collections)?
 	public User getFullUser(String username) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
 		
-		PreparedStatement ps = conn.prepareStatement("SELECT user_id ,user_name, password, email, "
+		PreparedStatement ps = conn.prepareStatement("SELECT user_id , username, password, email, "
 									+ "upvotes_hidden, profile_id FROM 9gag.users WHERE username = ?");
 		ps.setString(1, username);
 		ResultSet rs = ps.executeQuery();
@@ -116,17 +117,36 @@ public class UserDao {
 		return u;
 	}
 	
+	public User getFullUserByEmail(String email) throws SQLException {
+		Connection conn = DBManager.getInstance().getConn();
+		
+		PreparedStatement ps = conn.prepareStatement("SELECT user_id ,username, password, email, "
+									+ "upvotes_hidden, profile_id FROM 9gag.users WHERE email = ?");
+		ps.setString(1, email);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		User u = getUserById(rs.getLong("user_id"));
+		
+		u.setUpvotes(UpvoteDao.getInstance().getUpvotes(u));
+		u.setPosts(PostDao.getInstance().getAllPostsForUser(u));
+		u.setComments(CommentDao.getInstance().getAllCommentsForUser(u));
+		return u;
+	}
+	
 	public User getUserById(long userId) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
-		PreparedStatement ps = conn.prepareStatement("SELECT user_name, password, email, upvotes_hidden,"
+		PreparedStatement ps = conn.prepareStatement("SELECT username, password, email, upvotes_hidden,"
 				+ " profile_id FROM 9gag.users WHERE user_id = ?");
 		ps.setLong(1, userId);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		
-		return new User(userId, rs.getString("user_name"), 
-								rs.getString("password"), 
-								rs.getString("email"), 
-								ProfileDao.getInstance().getProfile(userId));
+		
+		return new User(userId, 
+						rs.getString("username"), 
+						rs.getString("password"), 
+						rs.getString("email"), 
+						ProfileDao.getInstance().getProfile(userId));
 	}
 }

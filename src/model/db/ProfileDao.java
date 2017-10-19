@@ -41,17 +41,21 @@ public class ProfileDao {
 	public Profile getProfile(long profileID) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
 		
-		PreparedStatement ps = conn.prepareStatement("SELECT avatar_path, full_name, gender, info, birthday_date"
+		PreparedStatement ps = conn.prepareStatement("SELECT avatar_url, full_name, gender, info, birthday_date"
 				+ ", social_net_id FROM 9gag.profiles WHERE profile_id = ?");
 		ps.setLong(1, profileID);
 		ResultSet rs = ps.executeQuery();
-		rs.next();
+	
 		
-		return new Profile(rs.getString("avatar_url"), 
-				rs.getString("full_name"), 
-				rs.getString("gender"),
-				rs.getString("birthday_date"), 
-				rs.getString("info"), 
-				SocialNetworkingDao.getInstance().getSocNet(rs.getLong("social_net_id")));
+		if(rs.next()) {
+			//TODO: is there a better way to check if empty
+			return new Profile(rs.getString("avatar_url").isEmpty() ? null : rs.getString("avatar_url"), 
+					rs.getString("full_name").isEmpty() ? null : rs.getString("full_name"), 
+					rs.getString("gender").isEmpty() ? null : rs.getString("gender"),
+					rs.getString("birthday_date").isEmpty() ? null : rs.getString("birthday_date"), 
+					rs.getString("info").isEmpty() ? null : rs.getString("info"), 
+					SocialNetworkingDao.getInstance().getSocNet(rs.getLong("social_net_id")));
+		}
+		return null;
 	}
 }

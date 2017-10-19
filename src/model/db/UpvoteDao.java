@@ -39,8 +39,8 @@ public class UpvoteDao {
 	public ArrayList<Upvote> getUpvotes(User u) throws SQLException{
 		Connection conn = DBManager.getInstance().getConn();
 		PreparedStatement ps = conn.prepareStatement("SELECT post_id, upvote_date FROM 9gag.upvotes "
-													+ "WHERE user_id = ?"
-													+ "ORDER BY upvote_date");
+													+ "WHERE user_id = ?");
+//	TODO:												+ "ORDER BY upvote_date");
 		ps.setLong(1, u.getId());
 		ResultSet rs = ps.executeQuery();
 		rs.next();

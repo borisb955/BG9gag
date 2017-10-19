@@ -27,6 +27,7 @@ public class User {
 	public User(Long id, String username, String password, String email, Profile profile) {
 		this(username, password, email);
 		this.profile = profile;
+		this.id = id;
 	}
 	
 	

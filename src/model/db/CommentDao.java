@@ -51,13 +51,13 @@ public class CommentDao {
 	public ArrayList<Comment> getAllCommentsForUser(User u) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
 		PreparedStatement ps = conn.prepareStatement("SELECT c1.comment_id, c1.comment, c1.points, "
-											+ "c1.issue_date, c1.parrent_comment, c1.post_id "
+											+ "c1.issue_date, c1.parrent_comment, c1.post_id, "
 											+ "c2.comment_id, c2.comment, c2.points, c2.issue_date, "
-											+ "c2.parrent_comment, c2.post_id, c2.user_id"
+											+ "c2.parrent_comment, c2.post_id, c2.user_id "
 											+ "FROM 9gag.comments as c1 "
 											+ "JOIN 9gag.comments as c2 "
 											+ "ON c1.parrent_comment = c2.comment_id "
-											+ "WHERE c1.user_id = ?"
+											+ "WHERE c1.user_id = ? "
 											+ "ORDER BY c1.issue_date");
 		ps.setLong(1, u.getId());
 		ResultSet rs = ps.executeQuery();
@@ -81,6 +81,7 @@ public class CommentDao {
 									 u, 
 									 PostDao.getInstance().getPost(rs.getLong("c1.post_id"), u)));
 		}
+
 		return comments;
 	}
 }
