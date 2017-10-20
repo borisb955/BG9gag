@@ -1,27 +1,27 @@
 package model;
 
 public class Tag {
-	private long tag_id;
-	private String tag_name;
+	private long tagId;
+	private String tagName;
 	
 	public Tag(String name) {
-		this.tag_name = name;
+		this.tagName = name;
 	}
 	
-	public Tag(long tag_id,String name) {
+	public Tag(long tagId,String name) {
 		this(name);
-		this.tag_id = tag_id;
+		this.tagId = tagId;
 	}
 	
-	public long getTag_id() {
-		return tag_id;
+	public long getTagId() {
+		return tagId;
 	}
 
-	public void setTag_id(long tag_id) {
-		this.tag_id = tag_id;
+	public void setTagId(long tagId) {
+		this.tagId = tagId;
 	}
 
-	public String getTag_name() {
-		return tag_name;
+	public String getTagName() {
+		return tagName;
 	}
 }

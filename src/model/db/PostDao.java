@@ -103,8 +103,28 @@ public class PostDao {
 	}
 	
 	
-//	public HashSet<Post> getLikedPostsForUser(User u){
-//		Connection conn = DBManager.getInstance().getConn();
-//		
-//	}
+	public void insertInTransaction(Post post, ArrayList<String> tags) throws SQLException {
+		Connection conn = DBManager.getInstance().getConn();
+		conn.setAutoCommit(false);
+		
+		try {
+			//inserting the post
+			insertPost(post);
+			
+			//inserting tags and posts-tags
+			for (String tag : tags) {
+				TagDao.getInstance().isertTagIfNew(tag, post);
+			}
+			
+			conn.commit();
+		} catch (SQLException e) {
+			//reverse
+			conn.rollback();
+			throw new SQLException();
+	
+		} finally {
+			conn.setAutoCommit(true);
+		}
+		
+	}
 }

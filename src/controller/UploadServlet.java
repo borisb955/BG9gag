@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.servlet.ServletException;
@@ -20,8 +21,11 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import model.Post;
+import model.Tag;
 import model.User;
 import model.db.PostDao;
+import model.db.PostTagDao;
+import model.db.TagDao;
 
 @WebServlet("/upload")
 @MultipartConfig
@@ -66,18 +70,19 @@ public class UploadServlet extends HttpServlet{
 	    	+File.separator + u.getUsername() 
 	    	+File.separator+"uploads"
 	    	+File.separator+"pics"
-	    	+File.separator+ u.getUsername() + new Random().nextInt(2_000_000_000));
+	    	+File.separator+ u.getUsername() + new Random().nextInt(2_000_000_000)
+	    	+".png");
 	    
 	    if(!file.exists()) {
 	    	file.createNewFile();
 	    }
 	    
 	    Post post = new Post(description , file.getAbsolutePath() , LocalDateTime.now(), u);
-	    try {
-			PostDao.getInstance().insertPost(post);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//	    try {
+//			PostDao.getInstance().insertPost(post);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 	    
 	    //TODO: why not FileInputStream -> from video
 	    InputStream fis = filePart.getInputStream();
@@ -90,7 +95,22 @@ public class UploadServlet extends HttpServlet{
 	    fis.close();
 	    fos.close();
 	    
-	    InputStream fileContent = filePart.getInputStream();
-	    // ... (do your job here)
+	    //Insert post and tags in DB 
+	    String tag1 = req.getParameter("tag1");
+		String tag2 = req.getParameter("tag2");
+		String tag3 = req.getParameter("tag3");
+		
+		ArrayList<String> tags = new ArrayList<>();
+		tags.add(tag1);
+		tags.add(tag2);
+		tags.add(tag3);
+		
+		try {
+			PostDao.getInstance().insertInTransaction(post, tags);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
+
+

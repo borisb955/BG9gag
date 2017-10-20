@@ -10,7 +10,10 @@
 	<body>
 		<form action="upload" method="post" enctype="multipart/form-data">
 		    <input type="text" name="description" />
-		    <input type="file" name="file" />
+		    <input type="file" name="file" /><br>
+		    <input type="text" placeholder="tag1" name="tag1">
+		    <input type="text" placeholder="tag2" name="tag2">
+		    <input type="text" placeholder="tag3" name="tag3"></br>
 		    <input type="submit" />
 		</form>
 	</body>

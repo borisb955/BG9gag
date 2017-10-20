@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import model.Post;
 import model.Tag;
+import model.User;
 
 public class PostTagDao {
 	private static PostTagDao instance;
@@ -22,15 +23,15 @@ public class PostTagDao {
 		return instance;
 	}
 	
-//	public void insertPostTag(PostTag pt) throws SQLException {
-//		Connection conn = DBManager.getInstance().getConn();
-//		
-//		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.posts_tags(post_id, tag_id) "
-//												+ "VALUES(?, ?)");
-//		ps.setLong(1, pt.getPost().getPost_id());
-//		ps.setLong(2, pt.getTag().getTag_id());
-//		ps.executeUpdate();
-//	}
+	public void insertPostTag(Post p, Tag t) throws SQLException {
+		Connection conn = DBManager.getInstance().getConn();
+		
+		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.posts_tags(post_id, tag_id) "
+												   + "VALUES(?, ?)");
+		ps.setLong(1, p.getPostId());
+		ps.setLong(2, t.getTagId());
+		ps.executeUpdate();
+	}
 	
 	public ArrayList<Post> getAllPostsForTag(Tag tag) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
@@ -44,7 +45,7 @@ public class PostTagDao {
 												+ "JOIN 9gag.posts as p "
 												+ "ON pt.post_id = p.post_id "
 												+ "ORDER BY p.upload_date");
-		ps.setString(1, tag.getTag_name());
+		ps.setString(1, tag.getTagName());
 		ResultSet rs = ps.executeQuery();
 		
 		ArrayList<Post> posts = new ArrayList<>();
