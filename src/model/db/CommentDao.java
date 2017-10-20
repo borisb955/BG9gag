@@ -37,7 +37,7 @@ public class CommentDao {
 		ps.setTimestamp(3, Timestamp.valueOf(com.getDateTime()));
 		ps.setLong(4, com.getParrent_comment().getComment_id());
 		ps.setLong(5, com.getUser().getId());
-		ps.setLong(6, com.getPost().getPost_id());
+		ps.setLong(6, com.getPost().getPostId());
 		ps.executeUpdate();
 		
 		ResultSet rs = ps.getGeneratedKeys();

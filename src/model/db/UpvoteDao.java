@@ -31,7 +31,7 @@ public class UpvoteDao {
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.upvotes(user_id, post_id, upvote_date)"
 												+ " VALUES(?, ?, ?)");
 		ps.setLong(1, user.getId());
-		ps.setLong(2, post.getPost_id());
+		ps.setLong(2, post.getPostId());
 		ps.setTimestamp(3, Timestamp.valueOf(post.getDateTime()));
 		ps.executeUpdate();
 	}

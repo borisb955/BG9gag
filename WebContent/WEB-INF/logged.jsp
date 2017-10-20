@@ -16,7 +16,11 @@
 		<table>
 			<c:forEach items="${requestScope.allPosts}" var="post" >
 			<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-			<img <c:out value="${ post.post_url } ">no image</c:out> width="100px" height="100px">
+			
+			
+			<img src="${ post.postUrl }" width="100px" height="100px">
+			
+			
 			<p><c:out value="${ post.points }"></c:out></p>
 			<p><c:out value="${ post.user.username }"></c:out></p>
 			</c:forEach>

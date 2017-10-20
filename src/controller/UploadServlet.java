@@ -42,12 +42,6 @@ public class UploadServlet extends HttpServlet{
 		User u = (User) s.getAttribute("user");
 		String description = req.getParameter("description"); 
 	    Part filePart = req.getPart("file"); // Retrieves <input type="file" name="file">
-
-		
-		//Here when we go back and upload again throws null pointer. Why?
-		System.out.println();
-		System.out.println();
-		System.out.println(u.getUsername());
 	
 		
 	    //using File.seperator for the different OSs

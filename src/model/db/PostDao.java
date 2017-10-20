@@ -31,14 +31,14 @@ public class PostDao {
 												+ " upload_date, user_id) "
 												+ "VALUES(?, ?, ?, ?)");
 		ps.setString(1, p.getDescription());
-		ps.setString(2, p.getPost_url());
+		ps.setString(2, p.getPostUrl());
 		ps.setTimestamp(3, Timestamp.valueOf(p.getDateTime()));
 		ps.setLong(4, p.getUser().getId());
 		
 		ps.executeUpdate();
 		ResultSet rs = ps.getGeneratedKeys();
 		rs.next();
-		p.setPost_id(rs.getLong(1));
+		p.setPostId(rs.getLong(1));
 	}
 	
 	public Post getPost(long postId, User u) throws SQLException{
