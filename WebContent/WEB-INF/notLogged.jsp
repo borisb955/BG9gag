@@ -9,17 +9,36 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Insert title here</title>
+	<style type="text/css">
+		#parent{  width: 900px; height: 20px;}
+		#child{background-color: blue; width: 350px; float: right; }
+		#namePoints{background-color: red; display: inline-flex; margin-top: 0px; }
+		.points{margin-right: 5px;}
+	</style>
 </head>
 	<body>
 	<jsp:include page="headerNotLogged.jsp"></jsp:include>
 	
-		<table>
-			<c:forEach items="${requestScope.allPosts}" var="post" >
-			<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-			<img <c:out value="${ post.postUrl } ">no image</c:out> width="100px" height="100px">
-			<p><c:out value="${ post.points }"></c:out></p>
-			<p><c:out value="${ post.user.username }"></c:out></p>
-			</c:forEach>
-		</table>
+		<div id="parent">
+			<div id="child">
+				<c:forEach items="${requestScope.allPosts}" var="post" >
+				
+				<div>
+					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
+					<img src="postpicServlet?postId=${ post.postId }" width="100px" height="100px">
+				</div>
+				
+				<div id="tags">
+
+				</div>
+				
+				<div id="namePoints">
+					<p class="points">points: <c:out value="${ post.points }"></c:out></p>
+					<p>user: <c:out value="${ post.user.username }"></c:out></p>
+				</div>
+				
+				</c:forEach>
+			</div>
+		</div>
 	</body>
 </html>
