@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Post{
 	private long postId;
@@ -9,19 +10,22 @@ public class Post{
 	private int points;
 	private LocalDateTime dateTime;
 	private User user;
+	private ArrayList<Tag> tags;
 	
-	public Post(String text, String post_url, LocalDateTime dateTime, User user) {
+	public Post(String text, String postUrl, LocalDateTime dateTime, User user) {
 		this.description = text;
-		this.postUrl = post_url;
+		this.postUrl = postUrl;
 		this.dateTime = dateTime;
 		this.user = user;
 		this.points = 0;
 	}
 
-	public Post(long post_id, String text, String post_url, int points, LocalDateTime dateTime, User user) {
-		this(text, post_url, dateTime, user);
-		this.postId = post_id;
+	public Post(long postId, String text, String postUrl, int points, LocalDateTime dateTime, User user,
+			ArrayList<Tag> tags) {
+		this(text, postUrl, dateTime, user);
+		this.postId = postId;
 		this.points = points;
+		this.tags = tags;
 	}
 	
 	
@@ -54,7 +58,9 @@ public class Post{
 		return points;
 	}
 	
-	
+	public ArrayList<Tag> getTags() {
+		return tags;
+	}
 	
 	
 }

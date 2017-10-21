@@ -50,13 +50,32 @@ public class PostTagDao {
 		
 		ArrayList<Post> posts = new ArrayList<>();
 		while(rs.next()) {
-			posts.add(new Post(rs.getLong("p.post_id"), 
+			long postId = rs.getLong("p.post_id");
+			posts.add(new Post(postId, 
 							   rs.getString("p.description"), 
 							   rs.getString("post_url"), 
 							   rs.getInt("p.points"), 
 							   rs.getTimestamp("p.upload_date").toLocalDateTime(), 
-							   UserDao.getInstance().getUserById(rs.getLong("p.user_id"))));
+							   UserDao.getInstance().getUserById(rs.getLong("p.user_id")),
+							   PostTagDao.getInstance().getTagsForPost(postId)));
 		}
 		return posts;
+	}
+
+	public ArrayList<Tag> getTagsForPost(long postId) throws SQLException {
+		Connection conn = DBManager.getInstance().getConn();
+		
+		PreparedStatement ps = conn.prepareStatement("SELECT t.tag_id, t.tag_name FROM 9gag.tags as t "
+												   + "JOIN 9gag.posts_tags as pt "
+												   + "ON t.tag_id = pt.tag_id "
+												   + "WHERE pt.post_id = ?");
+		ps.setLong(1, postId);
+		ResultSet rs = ps.executeQuery();
+		
+		ArrayList<Tag> tags = new ArrayList<>();
+		while(rs.next()) {
+			tags.add(new Tag(rs.getLong("t.tag_id"), rs.getString("t.tag_name")));
+		}
+		return tags;
 	}
 }
