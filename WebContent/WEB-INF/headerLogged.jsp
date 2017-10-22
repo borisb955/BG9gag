@@ -78,17 +78,20 @@
 		</div>
 		<div id="loginReg">
 		
-		<p class="username">Welcome <c:out value="${ sessionScope.user.username }"></c:out>
+	<!-- <p class="username">Welcome <c:out value="${ sessionScope.user.username }"></c:out> -->	
 		
 			
 			<div class="dropdown">
 			  <button class="dropbtn">Dropdown</button>
 				<div class="dropdown-content">
-					<img src="avatar">
-			    	<button><a class="button-links" href="">My Profile</a></button>
-			    	<button><a class="button-links" href="">Settings</a></button>
+					<form action="myProfile" method="get">
+						<input type="submit" value="My Profile"/>
+					</form>
+			    	<form action="settings" method="get">
+			    		<input type="submit" value="Settings"/>
+			    	</form>
 			    	<form action="logout" method="post">
-			    		<button><input type="submit" value="Logout"/></button>
+			    		<input type="submit" value="Logout"/>
 			    	</form>
 				</div>
 			</div>
