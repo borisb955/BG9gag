@@ -51,7 +51,7 @@ public class UploadServlet extends HttpServlet{
 	    //using File.seperator for the different OSs
 	    File folders = new File("C:"
 	    		+File.separator+"Users"
-	    		+File.separator+"PC"
+	    		+File.separator+"Grozdan"
 	    		+File.separator+"Desktop"
 	    		+File.separator+"9gagPic"
 	    		+File.separator+"users"
@@ -63,7 +63,7 @@ public class UploadServlet extends HttpServlet{
 	    //TODO: make posts names unique and remove random
 	    File file = new File("C:"
 	    	+File.separator+"Users"
-	    	+File.separator+"PC"
+	    	+File.separator+"Grozdan"
 	    	+File.separator+"Desktop"
 	    	+File.separator+"9gagPic"
 	    	+File.separator+"users"

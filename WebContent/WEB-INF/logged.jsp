@@ -30,9 +30,8 @@
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
 					<img src="postpicServlet?postId=${ post.postId }" width="100px" height="100px">
 				</div>
-				
 				<div id="tags">
-					<c:forEach items="${post.tags}" var="tag" >
+					<c:forEach items="${post.tags}" var="tag">
 						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
 					</c:forEach>
 				</div>
@@ -41,10 +40,9 @@
 					<p class="points">points: <c:out value="${ post.points }"></c:out></p>
 					<p>user: <c:out value="${ post.user.username }"></c:out></p>
 				</div>
-				
+				<a href="#">Comments</a>			
 				</c:forEach>
 			</div>
 		</div>
-	
 	</body>
 </html>
