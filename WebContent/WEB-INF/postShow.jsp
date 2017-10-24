@@ -12,11 +12,23 @@
 		<jsp:include page="headerNotLogged.jsp"></jsp:include>
 		
 		<div>
-		<h1><c:out value="${ requestScope.post1.postId }">no description</c:out></h1>
-		<c:forEach items="${ requestScope.post1.comments }" var="comment" >
-				
-				<c:out value="${ comment.comment }"></c:out>
+		<h1><c:out value="${ requestScope.postPage.description }"></c:out></h1><br>
+		<c:forEach items="${requestScope.postPage.tags}" var="tag" >
+						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
 		</c:forEach>
+		<br>
+		<img src="postpicServlet?postId=${ requestScope.postPage.postId }" width="100px" height="100px">
+		<br>
+		<span>Points:<c:out value="${ requestScope.postPage.points }"></c:out></span>
+		<h3>Comments:</h3>
+		<c:if test="${ requestScope.postPage.comments.size()>0 }">
+		<c:forEach items="${ requestScope.postPage.comments }" var="comment" >
+				<h1><c:out value="${ comment.comment }"></c:out></h1>
+		</c:forEach>
+		</c:if>
+		<c:if test="${ requestScope.postPage.comments.size()==0 }">
+		<h2>No comments yet...</h2>
+		</c:if>
 		</div>
 
 

@@ -29,7 +29,7 @@ public class ShowPostWithCommentsServlet extends HttpServlet {
 				try {
 					Post post = PostDao.getInstance().getPost(Long.parseLong(postId),		
 							UserDao.getInstance().getUserById(Long.parseLong(userId)));
-					request.setAttribute("post1", post);
+					request.setAttribute("postPage", post);
 					request.getRequestDispatcher("WEB-INF/postShow.jsp").forward(request, response);
 				} catch (NumberFormatException e) {					
 					e.printStackTrace();
