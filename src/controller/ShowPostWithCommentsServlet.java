@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Post;
 import model.db.PostDao;
@@ -25,12 +26,21 @@ public class ShowPostWithCommentsServlet extends HttpServlet {
 			
 				String postId=request.getParameter("postId");
 				String userId=request.getParameter("userId");
-				//request.getRequestDispatcher("WEB-INF/showPost.jsp").forward(request, response);
+		
 				try {
+					HttpSession s = request.getSession();
+					Object o = s.getAttribute("logged");
+					boolean logged = (o != null && ((boolean) o));
 					Post post = PostDao.getInstance().getPost(Long.parseLong(postId),		
 							UserDao.getInstance().getUserById(Long.parseLong(userId)));
 					request.setAttribute("postPage", post);
-					request.getRequestDispatcher("WEB-INF/postShow.jsp").forward(request, response);
+					if(s.isNew() || !logged) {
+					request.getRequestDispatcher("WEB-INF/notLoggedPostPage.jsp").forward(request, response);
+					return;
+					} else {
+						request.getRequestDispatcher("WEB-INF/loggedPostPage.jsp").forward(request, response);
+						return;
+					}
 				} catch (NumberFormatException e) {					
 					e.printStackTrace();
 				} catch (SQLException e) {					

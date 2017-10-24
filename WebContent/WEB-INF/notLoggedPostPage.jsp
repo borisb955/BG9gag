@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Post</title>
+<title><c:out value="${ requestScope.postPage.description }"></c:out></title>
 </head>
 <body>
 
@@ -30,7 +30,6 @@
 		<h2>No comments yet...</h2>
 		</c:if>
 		</div>
-
 
 </body>
 </html>

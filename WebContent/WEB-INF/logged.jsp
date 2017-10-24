@@ -41,8 +41,8 @@
 					<p class="points">points: <c:out value="${ post.points }"></c:out></p>
 					<p>user: <c:out value="${ post.user.username }"></c:out></p>
 				</div>
-				
-				<a href="#">Comments</a>			
+				<a href="showPostWithComment?postId=${ post.postId }&userId=${post.user.id}">Comments</a>
+						
 				</c:forEach>
 			</div>
 		</div>
