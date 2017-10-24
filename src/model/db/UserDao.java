@@ -10,7 +10,7 @@ import java.util.TreeSet;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+//import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import model.User;
 import util.Encrypter;
@@ -96,6 +96,28 @@ public class UserDao {
 			return true;
 		}
 		return false;
+	}
+	
+	public void changeUsername(long userId, String newUserName) throws SQLException {
+		Connection conn = DBManager.getInstance().getConn();
+		
+		PreparedStatement ps = conn.prepareStatement("UPDATE 9gag.users "
+												   + "SET username = ? "
+												   + "WHERE user_id = ?");
+		ps.setString(1, newUserName);
+		ps.setLong(2, userId);
+		ps.executeUpdate();
+	}
+	
+	public void changeEmail(long userId, String newEmail) throws SQLException {
+		Connection conn = DBManager.getInstance().getConn();
+		
+		PreparedStatement ps = conn.prepareStatement("UPDATE 9gag.users "
+												   + "SET email = ? "
+												   + "WHERE user_id = ?");
+		ps.setString(1, newEmail);
+		ps.setLong(2, userId);
+		ps.executeUpdate();
 	}
 	
 	//TODO: do we really need all the info when reg (collections)?

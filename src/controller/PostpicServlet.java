@@ -18,8 +18,10 @@ public class PostpicServlet extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String absPath =  (String) req.getParameter("postId");
-
+		System.out.println("Vlizash li e");
+		
+		String absPath =  (String) req.getParameter("postUrl");
+		
 		System.out.println();
 		System.out.println(absPath);
 

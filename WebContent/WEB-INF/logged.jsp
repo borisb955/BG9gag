@@ -28,8 +28,10 @@
 				
 				<div>
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-					<img src="postpicServlet?postId=${ post.postId }" width="100px" height="100px">
+				<!-- <img src="postpic?postUrl=${ post.postUrl }#" width="100px" height="100px">  -->
 				</div>
+				
+				<c:out value="${ post.postUrl }"></c:out>
 				
 				<div id="tags">
 					<c:forEach items="${post.tags}" var="tag" >

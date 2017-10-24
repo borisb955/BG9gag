@@ -11,7 +11,7 @@ import java.util.TreeSet;
 
 import model.Comment;
 import model.User;
-import sun.security.action.GetLongAction;
+//import sun.security.action.GetLongAction;
 
 public class CommentDao {
 	private static CommentDao instance;

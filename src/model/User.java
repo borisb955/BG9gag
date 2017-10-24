@@ -64,4 +64,7 @@ public class User {
 	public Profile getProfile() {
 		return profile;
 	}
+	public HashSet<Post> getLikedPosts() {
+		return likedPosts;
+	}
 }

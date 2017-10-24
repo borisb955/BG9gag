@@ -31,7 +31,6 @@ public class AvatarServlet extends HttpServlet{
 						+File.separator+"9gagPic"
 						+File.separator+"avatar.png";
 		}
-		System.out.println(avatarUrl);
 		
 		File file = new File(avatarUrl);
 		
