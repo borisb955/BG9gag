@@ -37,7 +37,8 @@ public class LoginServlet extends HttpServlet {
 				return;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			req.setAttribute("error", e.getMessage());
+			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 	}
 

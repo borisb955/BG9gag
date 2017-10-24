@@ -76,8 +76,7 @@ public class UserDao {
 		ResultSet rs = ps.getResultSet();
 		rs.next();
 		int count = rs.getInt(1);
-		
-		
+			
 		return count > 0;
 	}
 

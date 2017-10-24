@@ -39,7 +39,8 @@ public class AvatarServlet extends HttpServlet{
 		    Files.copy(path, out);
 		    out.flush();
 		} catch (IOException e) {
-
+			req.setAttribute("error", e.getMessage());
+			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 	}
 }

@@ -32,7 +32,8 @@ public class AccountsettingsServlet extends HttpServlet{
 					// User exists, please select another username
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				req.setAttribute("error", e.getMessage());
+				req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 			}
 		}
 		
@@ -45,7 +46,8 @@ public class AccountsettingsServlet extends HttpServlet{
 					// User exists, please select another username
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				req.setAttribute("error", e.getMessage());
+				req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 			}
 		}
 		

@@ -61,16 +61,16 @@ public class RegisterServlet extends HttpServlet {
 				try {
 					UserDao.getInstance().insertUser(u);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					req.setAttribute("error", e.getMessage());
+					req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 				}
 				req.getRequestDispatcher("").forward(req, resp);
 				return;
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			req.setAttribute("error", e.getMessage());
+			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 	}
 	

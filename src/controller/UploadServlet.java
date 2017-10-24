@@ -108,7 +108,8 @@ public class UploadServlet extends HttpServlet{
 		try {
 			PostDao.getInstance().insertInTransaction(post, tags);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			req.setAttribute("error", e.getMessage());
+			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 	}
 }

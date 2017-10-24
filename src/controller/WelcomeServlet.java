@@ -52,15 +52,16 @@ public class WelcomeServlet extends HttpServlet {
 		// Making it to get allPosts every time when the client click home page
 		//TODO: use application scope if possible to get all the posts every several 
 		//minutes in order to get the new posts
+		
 		try {
 
 			HashSet<Post> allPosts = PostDao.getInstance().getAllPosts();
 
 			req.setAttribute("allPosts", allPosts);
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (SQLException e) {		
+			req.setAttribute("error", e.getMessage());
+			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 		
 		

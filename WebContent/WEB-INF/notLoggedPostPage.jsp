@@ -30,6 +30,8 @@
 		<h2>No comments yet...</h2>
 		</c:if>
 		</div>
-
+			<form action="" method="GET">
+			<input type="submit" value="BACK"/>
+			</form>
 </body>
 </html>

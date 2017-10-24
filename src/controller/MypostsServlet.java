@@ -24,7 +24,8 @@ public class MypostsServlet extends HttpServlet{
 			ArrayList<Post> posts = PostDao.getInstance().getAllPostsForUser(u);
 			req.setAttribute("posts", posts);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			req.setAttribute("error", e.getMessage());
+			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 		req.getRequestDispatcher("WEB-INF/myPosts.jsp").forward(req, resp);
 		

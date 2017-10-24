@@ -42,9 +42,11 @@ public class ShowPostWithCommentsServlet extends HttpServlet {
 						return;
 					}
 				} catch (NumberFormatException e) {					
-					e.printStackTrace();
+					request.setAttribute("error", e.getMessage());
+					request.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(request, response);
 				} catch (SQLException e) {					
-					e.printStackTrace();
+					request.setAttribute("error", e.getMessage());
+					request.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(request, response);
 				}
 	}
 
