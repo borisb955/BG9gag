@@ -13,7 +13,7 @@ public class DBManager {
 		final String DB_PORT = "3306";
 		final String DB_DBNAME = "9gag";
 		final String DB_USER = "root";
-		final String DB_PASS = "vipmilan";
+		final String DB_PASS = "";
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

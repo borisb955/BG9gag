@@ -11,6 +11,7 @@ public class Post{
 	private LocalDateTime dateTime;
 	private User user;
 	private ArrayList<Tag> tags;
+	private ArrayList<Comment> comments;
 	
 	public Post(String text, String postUrl, LocalDateTime dateTime, User user) {
 		this.description = text;
@@ -20,12 +21,12 @@ public class Post{
 		this.points = 0;
 	}
 
-	public Post(long postId, String text, String postUrl, int points, LocalDateTime dateTime, User user,
-			ArrayList<Tag> tags) {
+	public Post(long postId, String text, String postUrl, int points, LocalDateTime dateTime, User user, ArrayList<Tag> tags, ArrayList<Comment> comments) {
 		this(text, postUrl, dateTime, user);
 		this.postId = postId;
 		this.points = points;
 		this.tags = tags;
+		this.comments=comments;
 	}
 	
 	
@@ -61,6 +62,8 @@ public class Post{
 	public ArrayList<Tag> getTags() {
 		return tags;
 	}
-	
+	public ArrayList<Comment> getComments() {
+		return comments;
+	}
 	
 }

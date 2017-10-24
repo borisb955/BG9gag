@@ -31,7 +31,6 @@ public class WelcomeServlet extends HttpServlet {
 			req.setAttribute("allPosts", allPosts);
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

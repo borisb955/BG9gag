@@ -57,7 +57,7 @@ public class PostTagDao {
 							   rs.getInt("p.points"), 
 							   rs.getTimestamp("p.upload_date").toLocalDateTime(), 
 							   UserDao.getInstance().getUserById(rs.getLong("p.user_id")),
-							   PostTagDao.getInstance().getTagsForPost(postId)));
+							   PostTagDao.getInstance().getTagsForPost(postId),null));
 		}
 		return posts;
 	}

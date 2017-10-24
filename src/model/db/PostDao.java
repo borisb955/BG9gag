@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
 import model.Post;
+import model.Tag;
 import model.User;
 
 public class PostDao {
@@ -51,13 +53,19 @@ public class PostDao {
 		ResultSet rs = ps.executeQuery();
 		
 		rs.next();
+		ArrayList<Tag> tags = PostTagDao.getInstance().getTagsForPost(postId);
+		String description = rs.getString("description");
+		String url =rs.getString("post_url");
+		int points = rs.getInt("points");
+		LocalDateTime time= rs.getTimestamp("upload_date").toLocalDateTime();
 		return new Post(postId,
-						rs.getString("description"), 
-						rs.getString("post_url"), 
-						rs.getInt("points"),
-						rs.getTimestamp("upload_date").toLocalDateTime(), 
+						description, 
+						url, 
+						points,
+						time, 
 						u,
-						PostTagDao.getInstance().getTagsForPost(postId));
+						tags,
+						CommentDao.getInstance().getMainCommentsForPost(new Post(postId,description,url,points,time,u,tags,null)));
 	}
 
 	public ArrayList<Post> getAllPostsForUser(User u) throws SQLException {
@@ -80,7 +88,9 @@ public class PostDao {
 							   rs.getInt("points"),
 							   rs.getTimestamp("upload_date").toLocalDateTime(),
 							   u,
-							   PostTagDao.getInstance().getTagsForPost(postId)));
+							   PostTagDao.getInstance().getTagsForPost(postId), null)
+							
+					);
 		}
 
 		return posts;
@@ -102,7 +112,7 @@ public class PostDao {
 								  rs.getInt("p.points"), 
 								  rs.getTimestamp("p.upload_date").toLocalDateTime(), 
 								  new User(rs.getLong("p.user_id"), rs.getString("u.username")),
-								  PostTagDao.getInstance().getTagsForPost(postId)));
+								  PostTagDao.getInstance().getTagsForPost(postId),null));
 		}
 		return allPosts;
 	}

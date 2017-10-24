@@ -39,7 +39,7 @@ public class AvatarServlet extends HttpServlet{
 		    Files.copy(path, out);
 		    out.flush();
 		} catch (IOException e) {
-		    // handle exception
+
 		}
 	}
 }

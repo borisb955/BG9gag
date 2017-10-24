@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 import model.Comment;
+import model.Post;
 import model.User;
 //import sun.security.action.GetLongAction;
 
@@ -68,7 +69,7 @@ public class CommentDao {
 												 rs.getString("c2.comment"),
 												 rs.getInt("c2.points"),
 												 rs.getTimestamp("c2.issue_date").toLocalDateTime(), 
-												 null, 
+												 null,
 												 UserDao.getInstance().getUserById(rs.getLong("c2.user_id")), 
 												 PostDao.getInstance().getPost(rs.getLong("c2.post_id"), u));
 			
@@ -80,7 +81,70 @@ public class CommentDao {
 									 u, 
 									 PostDao.getInstance().getPost(rs.getLong("c1.post_id"), u)));
 		}
-
 		return comments;
 	}
+	
+		public ArrayList<Comment> getMainCommentsForPost(Post post) throws SQLException{
+			
+			Connection conn = DBManager.getInstance().getConn();
+			PreparedStatement ps = conn.prepareStatement("SELECT comment_id, comment, points, issue_date, user_id"
+					+ " from comments"
+					+ " where post_id=? and parrent_comment IS NULL;");
+			
+			ps.setLong(1, post.getPostId());
+			ResultSet rs = ps.executeQuery();
+			ArrayList<Comment> comments = new ArrayList<>();
+			while(rs.next()) {
+				User user =  UserDao.getInstance().getUserById(rs.getLong("user_id"));
+				Comment parrentComment = new Comment(rs.getLong("comment_id"), 
+													 rs.getString("comment"),
+													 rs.getInt("points"),
+													 rs.getTimestamp("issue_date").toLocalDateTime(), 
+													 null,
+													 user,
+													 PostDao.getInstance().getPost(rs.getLong("c2.post_id"),user), 
+													CommentDao.getInstance().getChildCommentsForComment(rs.getLong("comment_id"),post));
+				
+				comments.add(parrentComment);
+			}
+			return comments;
+		
+		}
+	
+		public ArrayList<Comment> getChildCommentsForComment(long id,Post post) throws SQLException{
+			Connection conn = DBManager.getInstance().getConn();
+			PreparedStatement ps = conn.prepareStatement("SELECT comment_id, comment, points,issue_date, user_id"
+					+ " from comments"
+					+ " where parrent_comment=?;");
+			
+			ps.setLong(1, id);
+			ResultSet rs = ps.executeQuery();
+			User u = UserDao.getInstance().getUserById(rs.getLong("user_id"));
+			ArrayList<Comment> childComments =new ArrayList<>();
+			while(rs.next()) {
+					childComments.add(new Comment(rs.getLong("comment_id"),
+															rs.getString("comment"),
+															rs.getInt("points"),
+															rs.getTimestamp("issue_date").toLocalDateTime(),
+															CommentDao.getInstance().getCommentById(id,u,post),
+															u,
+															PostDao.getInstance().getPost(rs.getLong("c2.post_id"),u)
+															));
+			}
+			return childComments;
+		}
+		
+		public Comment getCommentById(long id,User u,Post p) throws SQLException{
+			Connection conn = DBManager.getInstance().getConn();
+			PreparedStatement ps = conn.prepareStatement("SELECT  comment, points,issue_date, user_id"
+					+ " from comments"
+					+ " where comment_id=?;");	
+			ps.setLong(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				return new Comment(rs.getLong("id"),rs.getString("comment"),rs.getInt("points"),rs.getTimestamp("issue_date").toLocalDateTime(),null,u,p);
+			}
+			return null;
+		}
+		
 }

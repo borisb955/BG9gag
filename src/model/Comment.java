@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Comment {
 	private long comment_id;
@@ -10,6 +11,7 @@ public class Comment {
 	private Comment parrent_comment;
 	private User user;
 	private Post post;
+	private ArrayList<Comment> childComments;
 	
 	public Comment(String comment, LocalDateTime dateTime, Comment parrent_comment, 
 					User user, Post post) {
@@ -21,11 +23,18 @@ public class Comment {
 		this.post = post;
 	}
 	
+	public Comment(long comment_id, String comment,int points,LocalDateTime dateTime, Comment parrent_comment, 
+			User user, Post post){
+		this(comment, dateTime,parrent_comment,user,post);
+		this.comment_id=comment_id;
+	}
+	
 	public Comment(long comment_id, String comment, int points, LocalDateTime dateTime, Comment parrent_comment, 
-			User user, Post post) {
+			User user, Post post,ArrayList<Comment> childComments) {
 		this(comment, dateTime, parrent_comment, user, post);
 		this.comment_id = comment_id;
 		this.points = points;
+		this.childComments=childComments;
 	}
 
 	
@@ -61,7 +70,9 @@ public class Comment {
 	public Post getPost() {
 		return post;
 	}
-	
+	public ArrayList<Comment> getChildComments() {
+		return childComments;
+	}
 	
 	
 	

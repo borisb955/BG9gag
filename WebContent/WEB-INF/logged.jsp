@@ -30,11 +30,9 @@
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
 				<!-- <img src="postpic?postUrl=${ post.postUrl }#" width="100px" height="100px">  -->
 				</div>
-				
-				<c:out value="${ post.postUrl }"></c:out>
-				
+
 				<div id="tags">
-					<c:forEach items="${post.tags}" var="tag" >
+					<c:forEach items="${post.tags}" var="tag">
 						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
 					</c:forEach>
 				</div>
@@ -44,9 +42,9 @@
 					<p>user: <c:out value="${ post.user.username }"></c:out></p>
 				</div>
 				
+				<a href="#">Comments</a>			
 				</c:forEach>
 			</div>
 		</div>
-	
 	</body>
 </html>
