@@ -31,7 +31,8 @@ public class WelcomeServlet extends HttpServlet {
 			req.setAttribute("allPosts", allPosts);
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			req.setAttribute("error", e.getMessage());
+			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 		
 		if(s.isNew() || !logged) {
@@ -56,7 +57,7 @@ public class WelcomeServlet extends HttpServlet {
 		try {
 
 			HashSet<Post> allPosts = PostDao.getInstance().getAllPosts();
-
+			
 			req.setAttribute("allPosts", allPosts);
 			
 		} catch (SQLException e) {		

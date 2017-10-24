@@ -20,6 +20,12 @@
 		<br>
 		<span>Points:<c:out value="${ requestScope.postPage.points }"></c:out></span>
 		<h3>Comments:</h3>
+			<form action="postComment" method="post">
+					<input type="text" style="display:none" value="${requestScope.postPage.postId }" name="postId">
+					<input type="text" style="display:none" value="${requestScope.postPage.user.id }" name = "userId">
+				<textarea name="commentText" rows="10" cols="50" maxlength="1000" style="resize:none;" placeholder="Comment here..."></textarea>
+				<input type="submit" value="Comment">
+			</form>
 		<c:if test="${ requestScope.postPage.comments.size()>0 }">
 		<c:forEach items="${ requestScope.postPage.comments }" var="comment" >
 				<h1><c:out value="${ comment.comment }"></c:out></h1>
@@ -29,7 +35,7 @@
 		<h2>No comments yet...</h2>
 		</c:if>
 		</div>
-		<form action="" method="GET">
+		<form action="" method="post">
 		<input type="submit" value="BACK"/>
 		</form>
 </body>
