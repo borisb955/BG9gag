@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Post;
+import model.User;
 import model.db.PostDao;
 import model.db.UserDao;
 
@@ -30,10 +31,13 @@ public class ShowPostWithCommentsServlet extends HttpServlet {
 				try {
 					HttpSession s = request.getSession();
 					Object o = s.getAttribute("logged");
+				
 					boolean logged = (o != null && ((boolean) o));
-					Post post = PostDao.getInstance().getPost(Long.parseLong(postId),		
-							UserDao.getInstance().getUserById(Long.parseLong(userId)));
-					request.setAttribute("postPage", post);
+						User user = UserDao.getInstance().getUserById(Long.parseLong(userId));
+						Post post = PostDao.getInstance().getPost(Long.parseLong(postId),user);
+						s.setAttribute("user", user);
+						s.setAttribute("post", post);
+					//request.setAttribute("postPage", post);
 					if(s.isNew() || !logged) {
 					request.getRequestDispatcher("WEB-INF/notLoggedPostPage.jsp").forward(request, response);
 					return;
@@ -41,10 +45,12 @@ public class ShowPostWithCommentsServlet extends HttpServlet {
 						request.getRequestDispatcher("WEB-INF/loggedPostPage.jsp").forward(request, response);
 						return;
 					}
-				} catch (NumberFormatException e) {					
+				} catch (NumberFormatException e) {		
+					 e.printStackTrace();
 					request.setAttribute("error", e.getMessage());
 					request.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(request, response);
-				} catch (SQLException e) {					
+				} catch (SQLException e) {
+					 e.printStackTrace();
 					request.setAttribute("error", e.getMessage());
 					request.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(request, response);
 				}

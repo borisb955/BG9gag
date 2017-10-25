@@ -5,28 +5,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><c:out value="${ requestScope.postPage.description }"></c:out></title>
+<title><c:out value="${ sessionScope.post.description }"></c:out></title>
 </head>
 <body>
 
 		<jsp:include page="headerNotLogged.jsp"></jsp:include>
 		
 		<div>
-		<h1><c:out value="${ requestScope.postPage.description }"></c:out></h1><br>
-		<c:forEach items="${requestScope.postPage.tags}" var="tag" >
+		<h1><c:out value="${ sessionScope.post.description }"></c:out></h1><br>
+		<c:forEach items="${sessionScope.post.tags}" var="tag" >
 						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
 		</c:forEach>
 		<br>
-		<img src="postpicServlet?postId=${ requestScope.postPage.postId }" width="100px" height="100px">
+		<img src="postpicServlet?postId=${ sessionScope.post.postId }" width="100px" height="100px">
 		<br>
-		<span>Points:<c:out value="${ requestScope.postPage.points }"></c:out></span>
+		<span>Points:<c:out value="${ sessionScope.post.points }"></c:out></span>
 		<h3>Comments:</h3>
-		<c:if test="${ requestScope.postPage.comments.size()>0 }">
-		<c:forEach items="${ requestScope.postPage.comments }" var="comment" >
+		<c:if test="${ sessionScope.post.comments.size()>0 }">
+		<c:forEach items="${ sessionScope.post.comments }" var="comment" >
 				<h1><c:out value="${ comment.comment }"></c:out></h1>
 		</c:forEach>
 		</c:if>
-		<c:if test="${ requestScope.postPage.comments.size()==0 }">
+		<c:if test="${ sessionScope.post.comments.size()==0 }">
 		<h2>No comments yet...</h2>
 		</c:if>
 		</div>

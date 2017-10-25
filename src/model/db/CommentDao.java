@@ -28,7 +28,7 @@ public class CommentDao {
 	
 	public void insertComment(Comment com) throws SQLException {
 		Connection conn = DBManager.getInstance().getConn();
-		
+		if(com.getParrent_comment()!=null){
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.comments(comment, points, issue_date"
 													+ "parrent_comment, user_id, post_id) "
 													+ "VALUES(?, ?, ?, ?, ?, ?)", 
@@ -44,6 +44,23 @@ public class CommentDao {
 		ResultSet rs = ps.getGeneratedKeys();
 		rs.next();
 		com.setComment_id(rs.getLong(1));
+		}else{
+			
+		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.comments(comment, points, issue_date"
+									+ ", user_id, post_id) "
+									+ "VALUES(?, ?, ?, ?, ?)", 
+									Statement.RETURN_GENERATED_KEYS);
+		ps.setString(1, com.getComment());
+		ps.setInt(2, com.getPoints());
+		ps.setTimestamp(3, Timestamp.valueOf(com.getDateTime()));
+		ps.setLong(4, com.getUser().getId());
+		ps.setLong(5, com.getPost().getPostId());
+		ps.executeUpdate();
+		
+		ResultSet rs = ps.getGeneratedKeys();
+		rs.next();
+		com.setComment_id(rs.getLong(1));
+		}
 	}
 	
 //	public boolean parrentCommentExists() { check if parent comment is null}
@@ -102,7 +119,7 @@ public class CommentDao {
 													 rs.getTimestamp("issue_date").toLocalDateTime(), 
 													 null,
 													 user,
-													 PostDao.getInstance().getPost(rs.getLong("c2.post_id"),user), 
+													post, 
 													CommentDao.getInstance().getChildCommentsForComment(rs.getLong("comment_id"),post));
 				
 				comments.add(parrentComment);
@@ -119,9 +136,10 @@ public class CommentDao {
 			
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
-			User u = UserDao.getInstance().getUserById(rs.getLong("user_id"));
+		
 			ArrayList<Comment> childComments =new ArrayList<>();
 			while(rs.next()) {
+				User u = UserDao.getInstance().getUserById(rs.getLong("user_id"));
 					childComments.add(new Comment(rs.getLong("comment_id"),
 															rs.getString("comment"),
 															rs.getInt("points"),
