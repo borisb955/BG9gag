@@ -28,15 +28,12 @@ public class PostpicServlet extends HttpServlet{
 		Post post = (Post) req.getSession().getAttribute("post");
 	
 		String pictureUrl = (String) req.getParameter("postUrl");
-	
-		System.out.println(pictureUrl);
-	
 		
 		if (pictureUrl == null || pictureUrl.isEmpty()) {
 			pictureUrl = "defaultPic.png";
 		}
 		
-		File myFile = new File(PICTURE_URL + pictureUrl);
+		File myFile = new File(pictureUrl);
 		OutputStream out = resp.getOutputStream();
 		Path path = myFile.toPath();
 		Files.copy(path, out);

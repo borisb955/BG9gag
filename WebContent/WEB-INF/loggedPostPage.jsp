@@ -5,27 +5,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><c:out value="${ sessionScope.post.description }"></c:out></title>
+<title><c:out value="${ sessionScope.postPage.description }"></c:out></title>
 </head>
 <body>
 				<jsp:include page="headerLogged.jsp"></jsp:include>
 		<div>
-		<h1><c:out value="${ sessionScope.post.description }"></c:out></h1><br>
-		<c:forEach items="${sessionScope.post.tags}" var="tag" >
+		<h1><c:out value="${ sessionScope.postPage.description }"></c:out></h1><br>
+		<c:forEach items="${sessionScope.postPage.tags}" var="tag" >
 						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
 		</c:forEach>
 		<br>
-		<img src="postpic?postUrl=${ sessionScope.post.postUrl }" width="50%" height=auto>
+		<img src="postpic?postUrl=${ sessionScope.postPage.postUrl }" width="50%" height=auto>
 		<br>
 		
-		<span>Points:<c:out value="${ sessionScope.post.points }"></c:out></span>
+		<span>Points:<c:out value="${ sessionScope.postPage.points }"></c:out></span>
 		<h3>Comments:</h3>
 			<form action="postComment" method="post">	
 				<textarea name="commentText" rows="6" cols="50" maxlength="1000" style="resize:none;" placeholder="Comment here..."></textarea>
 				<input type="submit" value="Comment">
 			</form>
-		<c:if test="${ sessionScope.post.comments.size()>0 }">
-		<c:forEach items="${ sessionScope.post.comments }" var="comment" >
+		<c:if test="${ sessionScope.postPage.comments.size()>0 }">
+		<c:forEach items="${ sessionScope.postPage.comments }" var="comment" >
 			<div>
 				<h3><c:out value="${ comment.user.username }"></c:out>
 				:DATE:<c:out value="${ comment.dateTime }"></c:out>
@@ -34,7 +34,7 @@
 				</div>
 		</c:forEach>
 		</c:if>
-		<c:if test="${ sessionScope.post.comments.size()==0 }">
+		<c:if test="${ sessionScope.postPage.comments.size()==0 }">
 		<h2>No comments yet...</h2>
 		</c:if>
 		</div>

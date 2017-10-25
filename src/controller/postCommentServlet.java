@@ -41,11 +41,10 @@ public class postCommentServlet extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/notLogged.jsp").forward(request, response);
 			return;
 		}else {
-			Post post = (Post) s.getAttribute("post");
-			User user = (User) s.getAttribute("user");
+			Post post = (Post) s.getAttribute("postPage");
+			User user = (User) s.getAttribute("userPage");
 			String text = request.getParameter("commentText");
-//			long postId = Long.parseLong(request.getParameter("postId"));
-//			long userId = Long.parseLong(request.getParameter("userId"));
+
 			
 			try {
 				CommentDao.getInstance().insertComment(new Comment(text,LocalDateTime.now(),null,user,post));
