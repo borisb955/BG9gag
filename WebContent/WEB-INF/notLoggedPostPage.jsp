@@ -23,6 +23,10 @@
 		<h3>Comments:</h3>
 		<c:if test="${ sessionScope.post.comments.size()>0 }">
 		<c:forEach items="${ sessionScope.post.comments }" var="comment" >
+		<h3><c:out value="${ comment.user.username }"></c:out>
+		:DATE:<c:out value="${ comment.dateTime }"></c:out>
+		:POINTS:<c:out value="${ comment.points }"></c:out>
+		</h3>
 				<h1><c:out value="${ comment.comment }"></c:out></h1>
 		</c:forEach>
 		</c:if>
