@@ -8,14 +8,14 @@
 <title><c:out value="${ sessionScope.post.description }"></c:out></title>
 </head>
 <body>
-<jsp:include page="headerLogged.jsp"></jsp:include>
+				<jsp:include page="headerLogged.jsp"></jsp:include>
 		<div>
 		<h1><c:out value="${ sessionScope.post.description }"></c:out></h1><br>
 		<c:forEach items="${sessionScope.post.tags}" var="tag" >
 						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
 		</c:forEach>
 		<br>
-		<img src="postpicServlet?postId=${ sessionScope.post.postId }" width="100px" height="100px">
+		<img src="postpic?postId=${ sessionScope.post.postId }" width="50%" height=auto>
 		<br>
 		<span>Points:<c:out value="${ sessionScope.post.points }"></c:out></span>
 		<h3>Comments:</h3>
@@ -26,7 +26,9 @@
 		<c:if test="${ sessionScope.post.comments.size()>0 }">
 		<c:forEach items="${ sessionScope.post.comments }" var="comment" >
 			<div>
-				<h3><c:out value="${ comment.user.username }"></c:out>:DATE:<c:out value="${ comment.dateTime }"></c:out>:POINTS:<c:out value="${ comment.points }"></c:out></h3>
+				<h3><c:out value="${ comment.user.username }"></c:out>
+				:DATE:<c:out value="${ comment.dateTime }"></c:out>
+				:POINTS:<c:out value="${ comment.points }"></c:out></h3>
 				<h1><c:out value="${ comment.comment }"></c:out></h1>
 				</div>
 		</c:forEach>
