@@ -26,9 +26,10 @@ public class PostpicServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		Post post = (Post) req.getSession().getAttribute("post");
-		String pictureUrl = post.getPostUrl();
 	
-		System.out.println(post.getPostUrl());
+		String pictureUrl = (String) req.getParameter("postUrl");
+	
+		System.out.println(pictureUrl);
 	
 		
 		if (pictureUrl == null || pictureUrl.isEmpty()) {
@@ -40,17 +41,6 @@ public class PostpicServlet extends HttpServlet{
 		Path path = myFile.toPath();
 		Files.copy(path, out);
 		out.flush();
-		
-		
-//		File file = new File(absPath);
-//		
-//		try (OutputStream out = resp.getOutputStream()) {
-//		    Path path = file.toPath();
-//		    Files.copy(path, out);
-//		    out.flush();
-//		} catch (IOException e) {
-//		    // handle exception
-//		}
 
 	}
 }

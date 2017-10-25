@@ -37,6 +37,7 @@ public class ShowPostWithCommentsServlet extends HttpServlet {
 						Post post = PostDao.getInstance().getPost(Long.parseLong(postId),user);
 						s.setAttribute("user", user);
 						s.setAttribute("post", post);
+						System.out.println(post.getPostUrl()+" tuk");
 					//request.setAttribute("postPage", post);
 					if(s.isNew() || !logged) {
 					request.getRequestDispatcher("WEB-INF/notLoggedPostPage.jsp").forward(request, response);

@@ -15,8 +15,9 @@
 						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
 		</c:forEach>
 		<br>
-		<img src="postpic?postId=${ sessionScope.post.postId }" width="50%" height=auto>
+		<img src="postpic?postUrl=${ sessionScope.post.postUrl }" width="50%" height=auto>
 		<br>
+		
 		<span>Points:<c:out value="${ sessionScope.post.points }"></c:out></span>
 		<h3>Comments:</h3>
 			<form action="postComment" method="post">	
