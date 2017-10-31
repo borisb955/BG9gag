@@ -59,8 +59,8 @@ public class UploadServlet extends HttpServlet{
 	    File file = new File("D:"
 	    		+File.separator+"postPics"
 	    		+File.separator + u.getUsername()
-	    	+File.separator+ u.getUsername() + new Random().nextInt(2_000_000_000)
-	    	+".png");
+		    	+File.separator+ u.getUsername() + new Random().nextInt(2_000_000_000)
+		    	+".png");
 	    
 	    if(!file.exists()) {
 	    	file.createNewFile();

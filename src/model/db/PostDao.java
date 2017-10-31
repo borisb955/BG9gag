@@ -122,6 +122,7 @@ public class PostDao {
 		Connection conn = DBManager.getInstance().getConn();
 		conn.setAutoCommit(false);
 		
+//		Doesnt work when it crashes in tagdao ????
 		try {
 			//inserting the post
 			insertPost(post);
